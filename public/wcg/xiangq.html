@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="my">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../stylesheets/xiangq.css"/>
+		<script src="../javascripts/jquery-3.1.1.min.js"></script>
+		<script src="../javascripts/angular.js"></script>
+		<script src="../javascripts/angular-ui-router.js"></script>
+		<script src="../javascripts/config.js"></script>
+		<script>
+			var app = angular.module('my', ['ui.router','nide'])
+			app.controller('newCtrl', function($scope,$location, $http){})
+		</script>
+	</head>
+	<body>
+		<div ng-controller="newCtrl">
+		<div ui-view='zong'>
+		
+		</div>
+		</div>
+	</body>
+	
+</html>

@@ -1,0 +1,53 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background: url(../images/login.jpg) left top;
+    background-size: 100% auto;
+	height:100hw;
+}
+#box,#box1{
+	width: 300px;
+	height:400px;
+	background: rgba(255,255,255,0.6);
+	box-shadow: rgba(0,0,0,0.6) 0px 0px 15px 10px;
+
+	padding: 10px;
+	border-radius: 15px;
+	text-align: center;
+	transition: all 1s;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-200px 0 0 -150px;
+}
+h1{
+	color:#8C8C8C;
+	padding: 45px 0 45px 0;
+}
+input{
+	line-height: 40px;
+	width: 100%;
+	margin: 10px 0;
+	text-indent: 20px;
+	outline: none;
+	color:#00B7FF;
+}
+button{
+	line-height: 40px;
+	width: 100%;
+	margin: 10px 0;
+   background:#007ED9;
+   border:none;
+   font-size: 17px;
+   color: #FFFFFF;
+}
+a{
+	color:#8C8C8C;
+	padding-top: 15px;
+}
+a:hover{
+	color:#000000;
+	
+}

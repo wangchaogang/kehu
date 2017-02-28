@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../javascripts/Chart.js"></script>
+		<script src="jquery-3.1.1.min.js"></script>
+	</head>
+	<body>
+		<table border="1" cellpadding="0" cellspacing="0" id="tab">
+			<tr>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+		</table>
+		<div style="width: 600px; height:400px;">
+		<canvas id="myChart"></canvas>
+		</div>
+		<div style="width: 600px; height:400px;">
+		<canvas id="myChart2"></canvas>
+		</div>
+	</body>
+	<script>
+//	window.location.reload()
+		$.ajax({
+			type:"get",
+			url:"http://localhost:1250/lint/lints",
+			data:{uid:1},
+			success:function(a){
+				console.log(a)
+				var c ='<tr><td>邮箱</td><td>电话</td><td>你猜</td><td>密码</td><td>名字</td></tr>'
+				if(a == '没登录'){
+					if(confirm("你没有登录，是否跳转登录页")){
+			 	window.location.href='../index.html'
+			 }
+				}else{
+					for(var i=0;i<a.length;i++){
+					c+='<tr nn="nn'+a[i].uid+'"><td>'+a[i].email+'</td><td>'+a[i].mumber+'</td><td>'+a[i].n1+'</td><td>'+a[i].password+'</td><td>'+a[i].username+'</td><td><button onclick="btn('+a[i].uid+')">删除</button></td><td><button onclick="btn2('+a[i].uid+')">详情</button></td><td><button onclick="btn3('+a[i].uid+')">修改</button></td></tr>'
+				}
+				}
+				
+				
+				$("table").html(c);
+				
+			}
+			
+		});
+		function btn(a){
+			alert(a)
+			
+			$.ajax({
+				type:"get",
+				url:"http://localhost:1250/lint/CustomerDelete",
+				data:{uid:a},
+				async:true,
+				success:function(a){
+					if(a.mad == 1){
+						$("tr[nn=nn"+a+"]").remove()
+						alert('成功')
+						
+					}else{
+						alert('失败')
+					}
+					console.log(a)
+				}
+			});
+		}
+		function btn2(a){
+//			alert(a)
+			window.location.href='new.html?uid='+a+'&name=ss'
+		}
+		function btn3(a){
+//			alert(a)
+			window.location.href='xiu.html?uid='+a+'&name=ss'
+		}
+		var names = []
+		var erd = []
+          $.ajax({
+				type:"get",
+				url:"http://localhost:1250/lint/naes",
+				async:true,
+				success:function(a){
+					for(var i=0;i<a.length;i++){
+						names.push(a[i].name)
+						erd.push(a[i].number)
+					}
+					tu(document.getElementById("myChart"),names,erd,'年龄统计图')
+					console.log(a)
+					
+				}
+			});
+			var c = [0,0,0]
+			$.ajax({
+				type:"get",
+				url:"http://localhost:1250/lint/naesd",
+				async:true,
+				success:function(a){
+					 c = [0,0,0]
+					for(var i=0;i<a.length;i++){
+						if(a[i].ard<=20){
+							c[0]++
+						}else if(a[i].ard>20 && a[i].ard<40){
+							c[1]++
+						}else{
+							c[2]++
+						}
+					}
+					console.log(c)
+//					tu(document.getElementById("myChart"),names,erd,'年龄统计图')         
+					console.log(a)
+						var myChart2 = new Chart(document.getElementById("myChart2"), {
+    type: 'pie',
+    data: {
+        labels: ['小于20','30-40','大于40'],
+        datasets: [{
+            label: ' 年龄',
+            data: c,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    }
+   
+});
+				}
+			});
+			
+	function tu(q,a,b,c){
+		var myChart = new Chart(q, {
+    type: 'bar',
+    data: {
+        labels: a,
+        datasets: [{
+            label: ' 年龄',
+            data: b,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            scaleStartValue :0
+        }]
+    },
+    options: {
+    	title:{
+    		display: true,
+    		fontColor:"#845135",  		
+            text: c,
+            fontSize:30
+    	},
+    	scales: {
+            yAxes: [{
+            	stacked: true,
+                barThickness:0
+            }]
+        }
+    }
+   
+});
+	}
+	
+	</script>
+</html>

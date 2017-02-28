@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-3.1.1.min.js"></script>
+	</head>
+	<body>
+		<ul>
+		   
+		</ul>
+		<button onclick=click1()>shang</button>
+		<button onclick=click2()>xia</button>
+	</body>
+	<script>
+	  
+	  var str = ''
+	  var a = 0
+	  aa(a)
+	  var cc = 0
+	  function aa(a){
+	  	$.ajax({
+		type:"post",
+		url:"http://localhost:1250/lint/li",
+		data:{
+			n1:a,
+			n2:2
+		},
+		async:true,
+		success:function(a){
+			console.log(a)
+			str = ''
+			cc = Math.ceil(a.da/2) 
+
+			for(var c=0;c<a.da2.length;c++){
+				str+= '<li>'+a.da2[c].username+'</li>'
+			}
+			$('ul').html(str)
+		}
+	})
+	  }
+		function click1(){
+	  	a--
+	  	if(a==-1){
+	  		a=0
+	  	}else{
+	  	 aa(a)	
+	  	}
+	  	
+	  }
+	  function click2(){
+	  	
+	  	a++
+	  	if(a==cc){
+//	  		alert(a)
+	  		a=cc-1
+	  	}else{
+	  		aa(a)
+	  	}
+	  	
+	  }
+	</script>
+</html>

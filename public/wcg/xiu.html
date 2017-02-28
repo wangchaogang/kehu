@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../javascripts/jquery-3.1.1.min.js"></script>
+	</head>
+	<body>
+		<!--uid:<input type="text" id="n1"/><br>-->
+		email:<input type="text" id="n2"/><br>
+		username:<input type="text" id="n3"/><br>
+		password:<input type="text" id="n4"/><br>
+		n1:<input type="text" id="n5"/><br>
+		mumber:<input type="text" id="n6"/><br>
+		<button id="btn">修改</button>
+	</body>
+	<script>
+		host = window.location.search;
+		var a = host.split('?uid=')[1].split('&')[0]
+		$.ajax({
+			type:"get",
+			url:"http://localhost:1250/lint/xiang",
+			data:{uid:a},
+			async:true,
+			success:function(c){
+				console.log(c[0])
+			
+				$('#n2').val(c[0].email)
+				$('#n3').val(c[0].username)
+				$('#n4').val(c[0].password)
+				$('#n5').val(c[0].n1)
+				$('#n6').val(c[0].mumber)
+			}
+		});
+		$('#btn').click(function(){
+			$.ajax({
+			type:"post",
+			url:"http://localhost:1250/lint/xiu",
+			data:{
+				uid:a,
+				email:$('#n2').val(),
+				username:$('#n3').val(),
+				password:$('#n4').val(),
+				n1:$('#n5').val(),mumber:
+				$('#n6').val()},
+			async:true,
+			success:function(c){
+				console.log(c)
+				
+				alert(c)
+			 if(confirm("修改成功是否跳转列表页")){
+			 	window.location.href='index.html'
+			 }
+			 
+                
+			}
+		});
+		})
+	</script>
+</html>
